@@ -6,23 +6,34 @@ databaseURL: "https://employee-tracker-ddab7.firebaseio.com",
 storageBucket: "employee-tracker-ddab7.appspot.com",
 messagingSenderId: "1047772905540"
 };
+
 firebase.initializeApp(config);
 // Global Variables
-var empName = $("#name").text;
-var empRole = $("#role").val();
-var empStart = $("#date").val();
-var empRate = $("#rate").val();
+
 // Database
 var database = firebase.database();
 // Database Ref
 database.ref().on("value", function(snapshot){});
+
 // Submit onClick
 $("#submit-employee").on("click", function(){
-      database.ref().push({
+
+	var empName = $("#name").val().trim();
+	var empRole = $("#role").val().trim();
+	var empStart = $("#date").val().trim();
+	var empRate = $("#rate").val().trim();
+
+	event.preventDefault();
+
+    database.ref().push({
       name: empName,
       role: empRole,
       start: empStart,
       rate: empRate
     });
-    console.log(empName);   
+
+    var newRow = $("<tr>");
+    newRow.text("test");
+    $("#table").append(newRow);
+
 });

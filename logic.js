@@ -8,12 +8,24 @@ messagingSenderId: "1047772905540"
 };
 
 firebase.initializeApp(config);
-// Global Variables
 
 // Database
 var database = firebase.database();
-// Database Ref
-database.ref().on("value", function(snapshot){});
+
+// FIREBASE WATCHER + INITIAL LOADER - behaves similarly to .on("value")
+database.ref().on("child_added", function(childSnapshot)){
+
+	// log what is coming out of snapshot
+	console.log(childSnapshot.val().name);
+	console.log(childSnapshot.val().role);
+	console.log(childSnapshot.val().start);
+	console.log(childSnapshot.val().rate);
+
+	// append to the table
+
+}, function(errorObject) {
+  console.log("The read failed: " + errorObject.code);
+});
 
 // Submit onClick
 $("#submit-employee").on("click", function(){

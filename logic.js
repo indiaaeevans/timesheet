@@ -13,7 +13,7 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // FIREBASE WATCHER + INITIAL LOADER - behaves similarly to .on("value")
-database.ref().on("child_added", function(childSnapshot)){
+database.ref().on("child_added", function(childSnapshot){
 
 	// log what is coming out of snapshot
 	console.log(childSnapshot.val().name);
@@ -22,6 +22,10 @@ database.ref().on("child_added", function(childSnapshot)){
 	console.log(childSnapshot.val().rate);
 
 	// append to the table
+
+	var row = $("<tr>");
+    row.html("<td>" + childSnapshot.val().name + "</td>" + "<td>" + childSnapshot.val().role + "</td><td>" + childSnapshot.val().start + "</td><td>" + childSnapshot.val().rate + "</td>");
+    $("#table").append(row);
 
 }, function(errorObject) {
   console.log("The read failed: " + errorObject.code);
@@ -44,8 +48,15 @@ $("#submit-employee").on("click", function(){
       rate: empRate
     });
 
-    var newRow = $("<tr>");
-    newRow.text("test");
-    $("#table").append(newRow);
+    var row = $("<tr>");
+    row.html("<td>" + empName + "</td>" + "<td>" + empRole + "</td><td>" + empStart + "</td><td>" + empRate + "</td>");
+    $("#table").append(row);
+
+    // var newRow = $("<tr>");
+    // $("#table").append(newRow);
+
+    // var newCell = $("<td>");
+    // newCell.text(empName);
+    // newRow.append(newCell);
 
 });

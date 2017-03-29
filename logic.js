@@ -15,6 +15,9 @@ var database = firebase.database();
 // FIREBASE WATCHER + INITIAL LOADER - behaves similarly to .on("value")
 database.ref().on("child_added", function(childSnapshot){
 
+	var months = 4;
+	var billed = parseInt(childSnapshot.val().rate) * months;
+
 	// log what is coming out of snapshot
 	console.log(childSnapshot.val().name);
 	console.log(childSnapshot.val().role);
@@ -24,7 +27,8 @@ database.ref().on("child_added", function(childSnapshot){
 	// append to the table
 
 	var row = $("<tr>");
-    row.html("<td>" + childSnapshot.val().name + "</td>" + "<td>" + childSnapshot.val().role + "</td><td>" + childSnapshot.val().start + "</td><td>" + childSnapshot.val().rate + "</td>");
+    row.html("<td>" + childSnapshot.val().name + "</td>" + "<td>" + childSnapshot.val().role + "</td><td>" + childSnapshot.val().start + "<td>" + months + "</td>" + "</td><td>" + childSnapshot.val().rate + "</td>"
+    	+ "<td>" + billed + "</td>");
     $("#table").append(row);
 
 }, function(errorObject) {
@@ -38,6 +42,8 @@ $("#submit-employee").on("click", function(){
 	var empRole = $("#role").val().trim();
 	var empStart = $("#date").val().trim();
 	var empRate = $("#rate").val().trim();
+	var months = 4;
+	var billed = parseInt(empRate) * months;
 
 	event.preventDefault();
 
@@ -49,7 +55,7 @@ $("#submit-employee").on("click", function(){
     });
 
     var row = $("<tr>");
-    row.html("<td>" + empName + "</td>" + "<td>" + empRole + "</td><td>" + empStart + "</td><td>" + empRate + "</td>");
+    row.html("<td>" + empName + "</td>" + "<td>" + empRole + "</td><td>" + empStart + "</td>" + "<td>" + months + "</td>" + "<td>" + empRate + "</td>" + "<td>" + billed + "</td>");
     $("#table").append(row);
 
     // var newRow = $("<tr>");

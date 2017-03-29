@@ -45,6 +45,7 @@ $("#submit-employee").on("click", function(){
 	var months = 4;
 	var billed = parseInt(empRate) * months;
 
+
 	event.preventDefault();
 
     database.ref().push({
@@ -54,15 +55,8 @@ $("#submit-employee").on("click", function(){
       rate: empRate
     });
 
-    var row = $("<tr>");
-    row.html("<td>" + empName + "</td>" + "<td>" + empRole + "</td><td>" + empStart + "</td>" + "<td>" + months + "</td>" + "<td>" + empRate + "</td>" + "<td>" + billed + "</td>");
-    $("#table").append(row);
-
-    // var newRow = $("<tr>");
-    // $("#table").append(newRow);
-
-    // var newCell = $("<td>");
-    // newCell.text(empName);
-    // newRow.append(newCell);
+    // var row = $("<tr>");
+    // row.html("<td>" + empName + "</td>" + "<td>" + empRole + "</td><td>" + empStart + "</td>" + "<td>" + months + "</td>" + "<td>" + empRate + "</td>" + "<td>" + billed + "</td>");
+    // $("#table").append(row);
 
 });
